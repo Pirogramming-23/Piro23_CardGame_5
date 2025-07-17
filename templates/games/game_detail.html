@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <div>
+        {% if is_attacker %}
+        <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div><hr>
+        <div>{{ game.status }}</div>
+        <div>나 : {{ game.attacker_card }}</div>
+
+        <form method="POST" action="{% url 'cancel' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+        </form>
+        <form method="POST" action="{% url 'history' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
+        </form>
+        {% elif is_defender %}
+        <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div>
+        <br>
+
+        <form method="POST" action="{% url 'counter' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="counter-link" style="border: none; cursor: pointer;">대응하기</button>
+        </form>
+        <form method="POST" action="{% url 'history' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
+        </form>
+        {% else %}
+        <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div><hr>
+        <div>{{ game.winning_condition }}</div><hr>
+        <div>{{ game.attacker }} : {{ game.attacker_card }}</div>
+        <div>{{ game.defender }} : {{ game.defender_card }}</div><hr>
+        <div>결과 : {{ game.result }}</div>
+        {% if game.result == 'attacker' and is_attacker %}
+        <div>점수 : {{ game.attacker_card }}</div>
+        {% elif game.result == 'attacker' and is_defender %}
+        <div>점수 : -{{ game.defender_card }}</div>
+        {% elif game.result == 'defender' and is_attacker %}
+        <div>점수 : -{{ game.attacker_card }}</div>
+        {% if game.result == 'defender' and is_defender %}
+        <div>점수 : {{ game.defender_card }}</div>
+        {% else %}
+        <div>점수 : 0</div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'cancel' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+        </form>
+        <form method="POST" action="{% url 'history' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

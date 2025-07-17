@@ -98,5 +98,14 @@ def game_history(request) :
 
     return render(request, 'games/game_history.html', context)
 
-def game_detail(request, game_id) :
-    ss
+@login_required
+def game_detail(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+    user = request.user
+    context = {
+        'game': game,
+        'is_attacker': user == game.attacker,
+        'is_defender': user == game.defender,
+    }
+
+    return render(request, 'games/game_detail.html', context)
