@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import UserCreationForm
+from .models import User
 from django import forms
 
 class CustomSignupForm(forms.Form):
@@ -12,3 +14,9 @@ class CustomSignupForm(forms.Form):
             user.social_id = socialaccount.uid
         user.save()
         return user
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ("username", "email")  # email을 원하지 않으면 "username"만

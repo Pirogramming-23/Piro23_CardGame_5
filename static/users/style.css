@@ -52,7 +52,6 @@ main {
     align-items: center;
     justify-content: center;
 }
-
 .home-main {
     display: flex;
     flex-direction: column;
@@ -60,24 +59,50 @@ main {
     justify-content: center;
     width: 100vw;
     min-height: 70vh;
+    background: #fff9e5;
 }
+
 .home-title {
     font-family: 'Modak', sans-serif;
     color: #427337;
     font-size: 60px;
     margin: 60px 0 32px 0;
+    letter-spacing: 2px;
+    text-shadow: 1px 2px 8px #e0e0e0;
 }
-.home-start-btn {
+
+.home-user-info {
+    font-size: 22px;
+    color: #3e5c2c;
+    margin-bottom: 32px;
+    font-family: 'Mochiy Pop P One', 'Noto Sans KR', sans-serif;
+}
+
+.home-btn-group {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.home-btn {
     display: inline-block;
     background: #427337;
     color: #fff9e5;
     font-family: 'Mochiy Pop P One', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     border-radius: 30px;
-    padding: 14px 48px;
-    margin-bottom: 32px;
+    padding: 16px 48px;
     text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(66, 115, 55, 0.08);
+    transition: background 0.2s, box-shadow 0.2s;
 }
+
+.home-btn:hover {
+    background: #2e5226;
+    box-shadow: 0 4px 16px rgba(66, 115, 55, 0.15);
+}
+
 .home-auth-links {
     display: flex;
     gap: 24px;

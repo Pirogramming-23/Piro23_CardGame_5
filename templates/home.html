@@ -1,6 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 <div class="home-main">
     <h1 class="home-title">Piro Game</h1>
-    <a href="#" class="home-start-btn">start</a>
+    {% if user.is_authenticated %}
+    <div class="home-user-info">{{ user.username }}님, 환영합니다!</div>
+    <div class="home-btn-group">
+        <a href="#" class="home-btn">start</a>
+        <a href="#" class="home-btn">list</a>
+    </div>
+    {% else %}
+    <div class="home-user-info">로그인 후 이용해주세요.</div>
+    <div class="home-btn-group">
+        <a href="#" class="home-btn">start</a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
