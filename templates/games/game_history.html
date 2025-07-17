@@ -14,21 +14,25 @@
 
     {% if game.status == "finished" %}
     <div>{{ game.result }}</div>
-    {% elif game.status == "waiting" and user == attacker %}
+    {% elif game.status == "waiting" and user == game.attacker %}
     <div>
         {{ game.status }}
-        <form method="POST" action="cancel/<int:game_id>/">
+        <form method="POST" action="{% url 'cancel' game.id %}">
             {% csrf_token %}
             <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
         </form>
     </div>
     {% else %}
-    <button type="submit">CounterAttack</button>
+    <form method="POST" action="{% url 'counter' game.id %}">
+        {% csrf_token %}
+        <button type="submit">CounterAttack</button>
+    </form>
     {% endif %}
 
     <div>
         <a href="#">게임 정보</a>
     </div>
 </li>
+{% endfor %}
 </ol>
 {% endblock %}

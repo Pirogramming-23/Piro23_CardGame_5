@@ -41,7 +41,6 @@ def cancel_game(request, game_id):
         return HttpResponseForbidden("삭제 권한이 없습니다.")
     
     if request.method == "POST" :
-        game = Game.objects.get(id=game_id)
         game.delete()
     return redirect('games:history')
 
@@ -98,3 +97,6 @@ def game_history(request) :
     }
 
     return render(request, 'games/game_history.html', context)
+
+def game_detail(request, game_id) :
+    ss
