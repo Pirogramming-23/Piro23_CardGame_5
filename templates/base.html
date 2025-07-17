@@ -1,35 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pirogrammer Card Game</title>
-</head>
-<body>
-    <header>
-        <div class="left_navbar">
-        <a href="{% url 'home' %}">Pirogrammer Card Game</a>
-        </div>
-        <div class="right_navbar">
-        {% if user.is_authenticated %}
-            <a href="#">게임하기</a>
-            <a href="#">랭킹보기</a>
-            <a href="#">로그아웃</a>
-        {% else %}
-            <a href="#">로그인</a>
-            <a href="#">회원가입</a>
-        {% endif %}
-        </div>
-    </header>
-
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    <footer>
-        환영합니다!
-    </footer>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pirogrammer Card Game</title>
+        <link rel="stylesheet" href="{% static 'users/style.css' %}" />
+    </head>
+    <body>
+        <header>
+            <div class="nav-title">
+                <a
+                    href="{% url 'users:user_main' %}"
+                    style="color: #fff9e5; text-decoration: none"
+                    >Pirogrammer Card Game</a
+                >
+            </div>
+            <div class="nav-links">
+                <div class="nav-links">
+                    {% if user.is_authenticated %}
+                    <a href="#">게임하기</a>
+                    <a href="#">랭킹보기</a>
+                    <a href="{% url 'account_logout' %}">로그아웃</a>
+                    {% else %}
+                    <a href="{% url 'users:user_login' %}">로그인</a>
+                    <a href="{% url 'users:user_signup' %}">회원가입</a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <main>{% block content %} {% endblock %}</main>
+        <footer>피로그래밍 23기 카드게임 세션 5조</footer>
+    </body>
 </html>
