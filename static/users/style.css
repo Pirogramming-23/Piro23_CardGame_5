@@ -34,40 +34,43 @@ header {
 main {
     position: relative;
     overflow: hidden;
-    padding-bottom: 60px;
 }
 
+/* .hills {
+    width: 100%;
+    height: 30vh;
+} */
 
 
 .hill-left {
     position: absolute;
-    width: 1093px;
-    height: 412px;
-    top: 340px;
-    left: -317px;
+    width: 70vw;
+    height: 36vh;
+    top: 50vh;
+    left: -20vw;
     background-color: #84B579;
-    border-radius: 546.5px / 206px ;
+    border-radius: 35vw / 18vh ;
     z-index: 500;
 }
 
 .hill-front {
     position: absolute;
-    width: 1622px;
-    height: 315px;
-    top: 450px;
-    left: -62px;
+    width: 110vw;
+    height: 30vh;
+    top: 66vh;
+    left: -5vw;
     background-color: #D3ECCD;
-    border-radius: 811px / 157.5px;
+    border-radius: 55vw / 15vh;
     z-index: 700;
 }
 .hill-right {
     position: absolute;
-    width: 402px;
-    height: 368px;
-    top: 355px;
-    left: 1178px;
+    width: 40vw;
+    height: 50vh;
+    top: 50vh;
+    left: 75vw;
     background-color: #84B579;
-    border-radius: 201px / 184px;
+    border-radius: 20vw / 25vh;
     z-index: 500;
 }
 
