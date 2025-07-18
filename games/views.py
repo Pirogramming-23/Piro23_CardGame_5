@@ -26,7 +26,7 @@ def start_game(request): # 시작 (공격하기)
 
     # 카드 뽑기 + 상대 선택
     cards = random.sample(range(1, 11), 5)
-    opponent = User.objects.exclude(id=request.user.id)
+    opponent = User.objects.filter(is_superuser=False, is_staff=False).exclude(id=request.user.id)
     return render(request, 'games/start_game.html', {
         'cards': cards,
         'users': opponent

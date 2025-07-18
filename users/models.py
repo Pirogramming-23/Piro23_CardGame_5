@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     SOCIAL_CHOICES = [
         ('google', 'Google'),
-        # ('kakao', 'Kakao'),
+        ('kakao', 'Kakao'),
         # ('naver', 'Naver'),
     ]
     social_type = models.CharField(max_length=20, choices=SOCIAL_CHOICES, blank=True, null=True)

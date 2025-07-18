@@ -161,7 +161,7 @@ SOCIALACCOUNT_PROVIDERS ={
 "kakao": {
 "APP": {
 "client_id": os.getenv("SOCIAL_AUTH_KAKAO_RESTAPI"),
-"secret": os.getenv("SOCIAL_AUTH_KAKAO_ADMIN"),
+"secret": "",
 "key": ""
 },
 # scope의 경우 내가 어떤 데이터를 가져올건지를 선택하는 것인데 사이트마다
