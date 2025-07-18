@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% load socialaccount %} {% block content %}
+<div class="signup-main">
+    <h1 class="signup-title">회원가입</h1>
+    <form class="signup-form" method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">회원가입</button>
+    </form>
+    <div class="social-signup">
+        <a
+            class="social_login"
+            href="{% provider_login_url 'google' process='login' %}"
+        >
+            구글로 회원가입
+        </a>
+        <a class="social_login" href="{% provider_login_url 'kakao' %}">
+            카카오로 회원가입
+        </a>
+    </div>
+</div>
+{% endblock %}
