@@ -54,8 +54,7 @@ def counter_attack(request, game_id):
         selected_card = int(request.POST['selected_card'])
         game.defender_card = selected_card
         game.status = 'finished'
-
-        if game.attacker.card == selected_card:
+        if game.attacker_card == selected_card:
             game.result = 'draw'
         elif game.winning_condition == 'high':
             game.result = 'attacker' if game.attacker_card > selected_card else 'defender'
@@ -104,8 +103,8 @@ def game_detail(request, game_id):
     user = request.user
     context = {
         'game': game,
-        'is_attacker': user == game.attacker,
-        'is_defender': user == game.defender,
+        'is_attacker': user == game.attacker and game.status == 'waiting',
+        'is_defender': user == game.defender and game.status == 'waiting',
     }
 
     return render(request, 'games/game_detail.html', context)

@@ -2,60 +2,62 @@
 {% block content %}
 <div>
     <div>
-        {% if is_attacker %}
-            <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div><hr>
-            <div>{{ game.status }}</div>
-            <div>나 : {{ game.attacker_card }}</div>
+{% if game.status == 'waiting' and is_attacker %}
+    <!-- 내가 공격자이고 아직 대응 안 된 상태 -->
+    <div>{{ game.attacker }} VS {{ game.defender }}</div><hr>
+    <div>{{ game.status }}</div>
+    <div>나 : {{ game.attacker_card }}</div>
 
-            <form method="POST" action="{% url 'games:cancel' game.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
-            </form>
-            <form method="POST" action="{% url 'games:history' %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
-            </form>
+    <form method="POST" action="{% url 'games:cancel' game.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+    </form>
+    <form method="POST" action="{% url 'games:history' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
+    </form>
 
-        {% elif is_defender %}
-            <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div><br>
+{% elif game.status == 'waiting' and is_defender %}
+    <!-- 내가 수비자이고 아직 대응 전 -->
+    <div>{{ game.attacker }} VS {{ game.defender }}</div><br>
+    <form method="GET" action="{% url 'games:counter' game.id %}" style="display: inline;">
+        <button type="submit" style="border: none; cursor: pointer;">대응하러 가기</button>
+    </form>
+    <form method="POST" action="{% url 'games:history' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
+    </form>
 
-            <form method="POST" action="{% url 'games:counter' game.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="counter-link" style="border: none; cursor: pointer;">대응하기</button>
-            </form>
-            <form method="POST" action="{% url 'games:history' %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
-            </form>
-
-        {% else %}
-            <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div><hr>
-            <div>{{ game.winning_condition }}</div><hr>
-            <div>{{ game.attacker }} : {{ game.attacker_card }}</div>
-            <div>{{ game.defender }} : {{ game.defender_card }}</div><hr>
-            <div>결과 : {{ game.result }}</div>
-
-            {% if game.result == 'attacker' and is_attacker %}
-                <div>점수 : {{ game.attacker_card }}</div>
-            {% elif game.result == 'attacker' and is_defender %}
-                <div>점수 : -{{ game.defender_card }}</div>
-            {% elif game.result == 'defender' and is_attacker %}
-                <div>점수 : -{{ game.attacker_card }}</div>
-            {% elif game.result == 'defender' and is_defender %}
-                <div>점수 : {{ game.defender_card }}</div>
-            {% else %}
-                <div>점수 : 0</div>
-            {% endif %}
-
-            <form method="POST" action="{% url 'games:cancel' game.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
-            </form>
-            <form method="POST" action="{% url 'games:history' %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
-            </form>
+{% elif game.status == 'finished' %}
+    <!-- 게임 끝났을 때 누구든지 결과 보기 -->
+    <div>{{ game.attacker }} VS {{ game.defender }}</div><hr>
+    <div>이기는 조건 : {{ game.winning_condition }}</div><hr>
+    <div>{{ game.attacker }} : {{ game.attacker_card }}</div>
+    <div>{{ game.defender }} : {{ game.defender_card }}</div><hr>
+    <div>결과 :
+        {% if game.result == 'attacker' %}
+            {{ game.attacker.username }}의 승리
+        {% elif game.result == 'defender' %}
+            {{ game.defender.username }}의 승리
+        {% elif game.result == 'draw' %}
+            무승부
         {% endif %}
     </div>
-</div>
+
+    {% if game.result == 'attacker' and user == game.attacker %}
+        <div>점수 : +{{ game.attacker_card }}</div>
+    {% elif game.result == 'attacker' and user == game.defender %}
+        <div>점수 : -{{ game.defender_card }}</div>
+    {% elif game.result == 'defender' and user == game.attacker %}
+        <div>점수 : -{{ game.attacker_card }}</div>
+    {% elif game.result == 'defender' and user == game.defender %}
+        <div>점수 : +{{ game.defender_card }}</div>
+    {% elif game.result == 'draw' %}
+        <div>점수 : 0</div>
+    {% endif %}
+    <form method="POST" action="{% url 'games:history' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="back-link" style="border: none; cursor: pointer;">전체 목록</button>
+    </form>
+{% endif %}
 {% endblock %}
