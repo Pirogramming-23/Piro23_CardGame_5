@@ -227,3 +227,75 @@ main {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
+.ranking-container {
+    background: #427337;
+    border-radius: 50px;
+    width: 400px;
+    margin: 80px auto 0 auto;
+    padding: 40px 32px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 24px rgba(66, 115, 55, 0.10);
+}
+.ranking-title {
+    font-family: 'Mochiy Pop P One', 'Noto Sans KR', sans-serif;
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 32px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.ranking-list {
+    list-style: decimal inside;
+    width: 100%;
+    margin: 0 0 32px 0;
+    padding: 0;
+}
+.ranking-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 20px;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-family: 'Mochiy Pop P One', 'Noto Sans KR', sans-serif;
+    font-size: 22px;
+}
+.ranking-rank {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 16px;
+}
+.ranking-username {
+    flex: 1;
+    text-align: left;
+    margin-left: 8px;
+}
+.ranking-win {
+    font-size: 20px;
+    color: #fff9e5;
+    margin-left: 16px;
+}
+.ranking-all-btn {
+    display: inline-block;
+    background: #fff9e5;
+    color: #427337;
+    font-family: 'Mochiy Pop P One', 'Noto Sans KR', sans-serif;
+    font-size: 24px;
+    border-radius: 25px;
+    padding: 12px 40px;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(66, 115, 55, 0.08);
+    transition: background 0.2s, color 0.2s;
+    margin-top: 16px;
+}
+.ranking-all-btn:hover {
+    background: #427337;
+    color: #fff9e5;
+    border: 2px solid #fff9e5;
+}

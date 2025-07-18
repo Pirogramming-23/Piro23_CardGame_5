@@ -4,7 +4,7 @@ from django.http import HttpResponseForbidden
 from .models import Game
 from django.contrib.auth import get_user_model
 import random
-from django.db.models import Q
+from django.db.models import Q, Count, Sum, Case, When, IntegerField
 # Create your views here.
 
 User = get_user_model()
@@ -54,8 +54,7 @@ def counter_attack(request, game_id):
         selected_card = int(request.POST['selected_card'])
         game.defender_card = selected_card
         game.status = 'finished'
-
-        if game.attacker.card == selected_card:
+        if game.attacker_card == selected_card:
             game.result = 'draw'
         elif game.winning_condition == 'high':
             game.result = 'attacker' if game.attacker_card > selected_card else 'defender'
@@ -104,8 +103,29 @@ def game_detail(request, game_id):
     user = request.user
     context = {
         'game': game,
-        'is_attacker': user == game.attacker,
-        'is_defender': user == game.defender,
+        'is_attacker': user == game.attacker and game.status == 'waiting',
+        'is_defender': user == game.defender and game.status == 'waiting',
     }
 
     return render(request, 'games/game_detail.html', context)
+
+
+def ranking_view(request):
+    User = get_user_model()
+    users = User.objects.annotate(
+        # 유저별 총 점수 계산 (공격자 승리시 공격자 카드 점수, 수비자 승리시 수비자 카드 점수)
+        total_score=Sum(
+            Case(
+                When(games_started__result='attacker', games_started__status='finished', then='games_started__attacker_card'),
+                default=0,
+                output_field=IntegerField(),
+            )
+        ) + Sum(
+            Case(
+                When(games_received__result='defender', games_received__status='finished', then='games_received__defender_card'),
+                default=0,
+                output_field=IntegerField(),
+            )
+        )
+    ).order_by('-total_score', 'username')[:5]
+    return render(request, 'games/game_ranking.html', {'users': users})

@@ -7,31 +7,37 @@
 {% for game in games %}
 <li>
     {% if user == game.attacker %}
-    <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div>
+    <div>{{ game.attacker }} VS {{ game.defender }}</div>
     {% else %}
-    <div>{{ game.defender_card }} {{game.defender}} VS {{ game.attacker }}</div>
+    <div>{{game.defender}} VS {{ game.attacker }}</div>
     {% endif %}
 
     {% if game.status == "finished" %}
-    <div>{{ game.result }}</div>
-    {% elif game.status == "waiting" and user == game.attacker %}
-    <div>
-        {{ game.status }}
-        <form method="POST" action="{% url 'games:cancel' game.id %}">
-            {% csrf_token %}
-            <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
-        </form>
-    </div>
-    {% else %}
-    <form method="POST" action="{% url 'games:counter' game.id %}">
-        {% csrf_token %}
-        <button type="submit">CounterAttack</button>
-    </form>
+        {% if game.result == 'attacker' %}
+            <div>{{ game.attacker.username }}의 승리</div>
+            {% elif game.result == 'defender' %}
+            <div>{{ game.defender.username }}의 승리</div>
+            {% elif game.result == 'draw' %}
+            <div>무승부</div>
+            {% endif %}
+
+        {% elif game.status == "waiting" and user == game.attacker %}
+        <div>
+            {{ game.get_status_display }} <!-- 대기중 표시-->
+            <form method="POST" action="{% url 'games:cancel' game.id %}">
+                {% csrf_token %}
+                <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+            </form>
+        </div>
+
+        {% elif game.status == "waiting" and user == game.defender %}
+        <a href="{% url 'games:counter' game.id %}">대응하러 가기</a>
+        {% endif %}
+
+        {% if game.status == "finished" or user == game.attacker %}
+            <a href="{% url 'games:detail' game.id %}">게임 정보</a>
     {% endif %}
 
-    <div>
-        <a href="{% url 'games:detail' game.id %}">게임 정보</a>
-    </div>
 </li>
 {% endfor %}
 </ol>
