@@ -1,22 +1,101 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
 .detail-container {
-    width: 25vw;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #427337;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    position: relative;
-    z-index: 800;
+  width: 90%;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #427337;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  color: #fff9e5;
+  position: relative;
+  z-index: 800;
 }
 
 .detail-vs {
   font-family: 'Mochiy Pop P One', sans-serif;
-  font-size: 1.1rem;
-  color: #fff9e5;
+  font-size: 1.25rem;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.back-link {
-    background-color: #85B579;
+.detail-container hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.4);
+  margin: 1rem 0;
+}
+
+.detail-container > div {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+/* 이기는 조건 */
+.detail-container .winning-condition {
+  font-weight: 600;
+}
+
+/* 카드 점수 표시 */
+.detail-container .score {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.detail-container form,
+.detail-container .back-link {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* 모든 버튼 공통 스타일 */
+.detail-container button,
+.detail-container .back-link {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.detail-container button {
+  background-color: #85B579;
+  color: #fff9e5;
+}
+
+.detail-container button:hover {
+  background-color: #6e8e59;
+}
+
+.detail-container .back-link {
+  background-color: #3c6e47;
+  color: #fff9e5;
+  text-decoration: none;
+  margin-left: 0.5rem;
+}
+
+.detail-container .back-link:hover {
+  background-color: #2d5036;
+}
+
+.detail-container .cancel-link {
+  background: none;
+  color: #ffc107;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+.detail-container .cancel-link:hover {
+  color: #ffd54f;
+  text-decoration: none;
 }

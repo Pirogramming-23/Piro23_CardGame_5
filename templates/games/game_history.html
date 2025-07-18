@@ -1,53 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block extra_css %}
-  <!-- 페이지 전용 CSS -->
-  <link rel="stylesheet" href="{% static 'users/history.css' %}"/>
+<link rel='stylesheet' href="{% static 'users/history.css' %}">
 {% endblock %}
-
 {% block content %}
-<div class='title'>History List</div>
-<div class='player'>현재 플레이어 : {{ user }}</div>
-<hr>
-<ol class="history-list">
-{% for game in games %}
-<li>
-    {% if user == game.attacker %}
-    <div class='col vs'>{{ game.attacker }} VS {{ game.defender }}</div>
-    {% else %}
-    <div class='col vs'>{{game.defender}} VS {{ game.attacker }}</div>
-    {% endif %}
-
-    <div class="col status"></div>
-    {% if game.status == "finished" %}
-        {% if game.result == 'attacker' %}
-            <div class='winner'>{{ game.attacker.username }}의 승리</div>
-            {% elif game.result == 'defender' %}
-            <div class='winner'>{{ game.defender.username }}의 승리</div>
-            {% elif game.result == 'draw' %}
-            <div class='winner'>무승부</div>
+<div class="history-container">
+    <div class="history-title">History List</div>
+    <div class="current-player">현재 플레이어 : {{ user }}</div>
+    <hr>
+    <ol class="history-list">
+    {% for game in games %}
+    <li>
+        <div class="game-info">
+            {% if user == game.attacker %}
+            <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div>
+            {% else %}
+            <div>{{ game.defender_card }} {{game.defender}} VS {{ game.attacker }}</div>
             {% endif %}
 
-        {% elif game.status == "waiting" and user == game.attacker %}
-        <div>
-            {{ game.get_status_display }} <!-- 대기중 표시-->
-            <form method="POST" action="{% url 'games:cancel' game.id %}">
+            {% if game.status == "finished" %}
+            <div class="game-result">{{ game.result }}</div>
+            {% elif game.status == "waiting" and user == game.attacker %}
+            <div class="game-status">
+                {{ game.status }}
+                <form method="POST" action="{% url 'games:cancel' game.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+                </form>
+            </div>
+            {% else %}
+            <form method="POST" action="{% url 'games:counter' game.id %}">
                 {% csrf_token %}
-                <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+                <button type="submit">CounterAttack</button>
             </form>
+            {% endif %}   
+            <div>
+                <a href="{% url 'games:detail' game.id %}" class="info-btn">게임 정보</a>
+            </div>                     
         </div>
+    </li>
+    {% endfor %}
+    </ol>    
+</div>
 
-        {% elif game.status == "waiting" and user == game.defender %}
-        <a href="{% url 'games:counter' game.id %}">대응하러 가기</a>
-        {% endif %}
-
-        {% if game.status == "finished" or user == game.attacker %}
-            <a href="{% url 'games:detail' game.id %}">게임 정보</a>
-        {% endif %}
-
-</li>
-{% endfor %}
-</ol>
 {% endblock %}
 {% block hills %}
 {# 부모의 기본 언덕 마크업을 완전히 덮어써서 제거 #}
