@@ -4,7 +4,7 @@ from django.http import HttpResponseForbidden
 from .models import Game
 from django.contrib.auth import get_user_model
 import random
-from django.db.models import Q, Count, Sum, Case, When, IntegerField
+from django.db.models import Q, F, Sum, Case, When, IntegerField
 # Create your views here.
 
 User = get_user_model()
@@ -111,18 +111,19 @@ def game_detail(request, game_id):
 
 
 def ranking_view(request):
-    User = get_user_model()
-    users = User.objects.annotate(
+    users = User.objects.filter(is_superuser=False, is_staff=False).annotate(
         # 유저별 총 점수 계산 (공격자 승리시 공격자 카드 점수, 수비자 승리시 수비자 카드 점수)
         total_score=Sum(
             Case(
                 When(games_started__result='attacker', games_started__status='finished', then='games_started__attacker_card'),
+                When(games_started__result='defender', games_started__status='finished', then=F('games_started__attacker_card') * -1),
                 default=0,
                 output_field=IntegerField(),
             )
         ) + Sum(
             Case(
                 When(games_received__result='defender', games_received__status='finished', then='games_received__defender_card'),
+                When(games_received__result='attacker', games_received__status='finished', then=F('games_received__defender_card') * -1),
                 default=0,
                 output_field=IntegerField(),
             )
