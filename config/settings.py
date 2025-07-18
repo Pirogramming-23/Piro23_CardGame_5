@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,9 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # allauth 추가
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # 소셜 로그인 추가
+    'allauth.socialaccount.providers.google', # 구글 로그인
+    'allauth.socialaccount.providers.kakao', # 카카오 로그인
+    'allauth.socialaccount.providers.naver', # 네이버 로그인
     'games',
-    'users'
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User' # 생성한 모델을 우선으로 적용
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,7 +64,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # allauth 추가
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    #추가 장고에서 사용자의 이름을 기준으로 로그인하도록 설정
+    'django.contrib.auth.backends.ModelBackend',
+
+    # 추가 'allauth'의 인증방식 추가
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
 
 ROOT_URLCONF = 'config.urls'
 
@@ -118,7 +144,74 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+#추가
+SOCIALACCOUNT_PROVIDERS ={
+#추가 카카오 설정
+"kakao": {
+"APP": {
+"client_id": os.getenv("SOCIAL_AUTH_KAKAO_RESTAPI"),
+"secret": os.getenv("SOCIAL_AUTH_KAKAO_ADMIN"),
+"key": ""
+},
+# scope의 경우 내가 어떤 데이터를 가져올건지를 선택하는 것인데 사이트마다
+# 제공하는 값이 다르기 때문에 가져올 데이터를 설정한 이후 추가/삭제 해보면 됩니다.
+# SCOPE값에 제공하지 않는 값을 넣거나 하는 이유로 오류가 나올 수 있음
+"SCOPE": [
+
+],
+#추가
+"AUTH_PARAMS": {
+"access_type": "online", #추가
+'prompt': 'select_account', #추가 간편로그인을 지원해줌
+}},
+# ###################################################### #
+#구글 설정
+"google": {
+"APP": {
+"client_id": os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY"),
+"secret": os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET"),
+"key": ""
+},
+# scope의 경우 내가 어떤 데이터를 가져올건지를 선택하는 것인데 사이트마다
+# 제공하는 값이 다르기 때문에 가져올 데이터를 설정한 이후 추가/삭제 해보면 됩니다.
+# SCOPE값에 제공하지 않는 값을 넣거나 하는 이유로 오류가 나올 수 있음
+"SCOPE": [
+    "profile", #구글의 경우 무조건 추가
+    "email", # 구글의 경우 무조건 추가
+],
+#추가
+"AUTH_PARAMS": {
+"access_type": "online", #추가
+'prompt': 'select_account',#추가 간편로그인을 지원해줌
+}}}
+
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomSignupForm'
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_ON_GET = True
+
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+SOCIALACCOUNT_AUTO_SIGNUP = False
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'  # username 또는 email 또는 both
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # 비밀번호 확인 입력
+SOCIALACCOUNT_AUTO_SIGNUP = False           # 소셜 자동가입 여부

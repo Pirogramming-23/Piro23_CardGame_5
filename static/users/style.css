@@ -1,0 +1,179 @@
+body {
+    background: #fff9e5;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #427337;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+}
+.nav-title {
+    color: #fff9e5;
+    font-family: "Modak", "sans-serif";
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+.nav-links a {
+    color: #fff9e5;
+    font-family: "Modak", "Noto Sans KR", "sans-serif";
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 400;
+}
+footer {
+    background: #427337;
+    color: #fff9e5;
+    font-family: "Mochiy Pop P One", "Noto Sans KR", "sans-serif";
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+}
+main {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.home-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 70vh;
+    background: #fff9e5;
+}
+
+.home-title {
+    font-family: 'Modak', sans-serif;
+    color: #427337;
+    font-size: 60px;
+    margin: 60px 0 32px 0;
+    letter-spacing: 2px;
+    text-shadow: 1px 2px 8px #e0e0e0;
+}
+
+.home-user-info {
+    font-size: 22px;
+    color: #3e5c2c;
+    margin-bottom: 32px;
+    font-family: 'Mochiy Pop P One', 'Noto Sans KR', sans-serif;
+}
+
+.home-btn-group {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.home-btn {
+    display: inline-block;
+    background: #427337;
+    color: #fff9e5;
+    font-family: 'Mochiy Pop P One', sans-serif;
+    font-size: 22px;
+    border-radius: 30px;
+    padding: 16px 48px;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(66, 115, 55, 0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.home-btn:hover {
+    background: #2e5226;
+    box-shadow: 0 4px 16px rgba(66, 115, 55, 0.15);
+}
+
+.home-auth-links {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+}
+.home-auth-links a {
+    color: #427337;
+    font-family: 'Modak', 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.social-signup {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.social_login {
+    display: block;
+    background: #f5f5f5;
+    color: #333;
+    padding: 0.75rem;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.social_login:hover {
+    background: #e0e0e0;
+}
+
+.signup-main {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 2rem;
+    background: #fff9e5;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.signup-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #3e5c2c;
+}
+.signup-info {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+}
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.signup-form button {
+    background: #3e5c2c;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.signup-form input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

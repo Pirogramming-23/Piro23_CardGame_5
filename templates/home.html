@@ -1,18 +1,17 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<div class="home-container">
+{% extends 'base.html' %} {% block content %}
+<div class="home-main">
+    <h1 class="home-title">Piro Game</h1>
     {% if user.is_authenticated %}
-        <h2>👋환영합니다!</h2>
-        <p>지금 바로 게임을 시작해보세요.</p>
-        <a href="#" class="btn">게임 시작</a>
-        <a href="#" class="btn">전적 보기</a>
-        <a href="#" class="btn">랭킹 보기</a>
+    <div class="home-user-info">{{ user.username }}님, 환영합니다!</div>
+    <div class="home-btn-group">
+        <a href="#" class="home-btn">start</a>
+        <a href="#" class="home-btn">list</a>
+    </div>
     {% else %}
-        <h2>피로그래밍 카드게임에 오신 걸 환영합니다!</h2>
-        <p>게임을 즐기려면 로그인 또는 회원가입해주세요.</p>
-        <a href="#" class="btn">로그인</a>
-        <a href="#" class="btn">회원가입</a>
+    <div class="home-user-info">로그인 후 이용해주세요.</div>
+    <div class="home-btn-group">
+        <a href="#" class="home-btn">start</a>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
