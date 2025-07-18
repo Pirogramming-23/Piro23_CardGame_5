@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% load socialaccount %} {# 소셜 로그인 템플릿 태그
-로드 #} {% block content %}
+{% extends 'base.html' %} {% load socialaccount %} {% block content %}
 <div class="signup-main">
     <h1 class="signup-title">회원가입</h1>
     <form class="signup-form" method="post">
@@ -13,14 +12,9 @@
         >
             구글로 회원가입
         </a>
-        {% comment %}
-        <a class="social_login" href="{% provider_login_url 'naver' %}"
-            >네이버로 회원가입</a
-        >
-        <a class="social_login" href="{% provider_login_url 'kakao' %}"
-            >카카오로 회원가입</a
-        >
-        {% endcomment %}
+        <a class="social_login" href="{% provider_login_url 'kakao' %}">
+            카카오로 회원가입
+        </a>
     </div>
 </div>
 {% endblock %}

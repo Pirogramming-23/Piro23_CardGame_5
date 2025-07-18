@@ -12,7 +12,7 @@ def user_signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('users:user_main')  # 회원가입 후 이동할 페이지
+            return redirect('users:user_login')  # 회원가입 후 이동할 페이지
     else:
         form = CustomUserCreationForm()
     return render(request, 'user_signup.html', {'form': form})

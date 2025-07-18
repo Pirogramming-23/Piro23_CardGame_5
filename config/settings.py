@@ -157,44 +157,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #추가
 SOCIALACCOUNT_PROVIDERS ={
-# #추가 카카오 설정
-# "kakao": {
-# "APP": {
-# "client_id": "발급받은 REST API키값",
-# "secret": "발급받은 Admin키값",
-# "key": ""
-# },
-# # scope의 경우 내가 어떤 데이터를 가져올건지를 선택하는 것인데 사이트마다
-# # 제공하는 값이 다르기 때문에 가져올 데이터를 설정한 이후 추가/삭제 해보면 됩니다.
-# # SCOPE값에 제공하지 않는 값을 넣거나 하는 이유로 오류가 나올 수 있음
-# "SCOPE": [
+#추가 카카오 설정
+"kakao": {
+"APP": {
+"client_id": os.getenv("SOCIAL_AUTH_KAKAO_RESTAPI"),
+"secret": os.getenv("SOCIAL_AUTH_KAKAO_ADMIN"),
+"key": ""
+},
+# scope의 경우 내가 어떤 데이터를 가져올건지를 선택하는 것인데 사이트마다
+# 제공하는 값이 다르기 때문에 가져올 데이터를 설정한 이후 추가/삭제 해보면 됩니다.
+# SCOPE값에 제공하지 않는 값을 넣거나 하는 이유로 오류가 나올 수 있음
+"SCOPE": [
 
-# ],
-# #추가
-# "AUTH_PARAMS": {
-# "access_type": "online", #추가
-# 'prompt': 'select_account', #추가 간편로그인을 지원해줌
-# }},
-# ######################################################
-# #네이버 설정
-# "naver": {
-# "APP": {
-# "client_id": ("발급받은 client id값"),
-# "secret": ("발급받은 client secret값"),
-# "key": ""
-# },
-# # scope의 경우 내가 어떤 데이터를 가져올건지를 선택하는 것인데 사이트마다
-# # 제공하는 값이 다르기 때문에 가져올 데이터를 설정한 이후 추가/삭제 해보면 됩니다.
-# # SCOPE값에 제공하지 않는 값을 넣거나 하는 이유로 오류가 나올 수 있음
-# "SCOPE": [
-
-# ],
-# #추가
-# "AUTH_PARAMS": {
-# "access_type": "online",#추가
-# 'prompt': 'select_account',#추가 간편로그인을 지원해줌
-# }},
-######################################################
+],
+#추가
+"AUTH_PARAMS": {
+"access_type": "online", #추가
+'prompt': 'select_account', #추가 간편로그인을 지원해줌
+}},
+# ###################################################### #
 #구글 설정
 "google": {
 "APP": {
@@ -230,3 +211,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 SOCIALACCOUNT_AUTO_SIGNUP = False
 
+ACCOUNT_AUTHENTICATION_METHOD = 'username'  # username 또는 email 또는 both
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # 비밀번호 확인 입력
+SOCIALACCOUNT_AUTO_SIGNUP = False           # 소셜 자동가입 여부
