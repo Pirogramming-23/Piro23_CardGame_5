@@ -206,12 +206,14 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 SOCIALACCOUNT_AUTO_SIGNUP = False
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username'  # username 또는 email 또는 both
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # 비밀번호 확인 입력
-SOCIALACCOUNT_AUTO_SIGNUP = False           # 소셜 자동가입 여부
+ACCOUNT_LOGIN_METHODS = {"username"}
+ACCOUNT_SIGNUP_FIELDS = [
+    "email",
+    "username*",
+    "password1*",
+    "password2*"
+]
