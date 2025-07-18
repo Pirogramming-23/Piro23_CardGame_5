@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% load socialaccount %} {# 소셜 로그인 템플릿 태그
+로드 #} {% block content %}
+<div class="signup-main">
+    <h1 class="signup-title">로그인</h1>
+    <form class="signup-form" method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">로그인</button>
+    </form>
+    <div class="social-signup">
+        <a
+            class="social_login"
+            href="{% provider_login_url 'google' process='login' %}"
+        >
+            구글로 로그인
+        </a>
+        <a class="social_login" href="{% provider_login_url 'kakao' %}">
+            카카오로 로그인
+        </a>
+    </div>
+</div>
+{% endblock %}
