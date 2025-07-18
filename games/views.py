@@ -4,6 +4,7 @@ from django.http import HttpResponseForbidden
 from .models import Game
 from django.contrib.auth import get_user_model
 import random
+from django.db.models import Q
 # Create your views here.
 
 User = get_user_model()
@@ -38,8 +39,9 @@ def cancel_game(request, game_id):
 
     if game.attacker != request.user:
         return HttpResponseForbidden("삭제 권한이 없습니다.")
-
-    game.delete()
+    
+    if request.method == "POST" :
+        game.delete()
     return redirect('games:history')
 
 @login_required
@@ -65,3 +67,45 @@ def counter_attack(request, game_id):
 
     cards = random.sample(range(1, 11), 5)
     return render(request, 'games/counter_attack.html', {'game': game, 'cards': cards})
+
+@login_required
+def game_history(request) :
+    users = request.user
+
+    games = Game.objects.filter(Q(attacker=users) | Q(defender=users)).order_by('-id')
+
+    wins = 0
+    losses = 0
+    draws = 0
+
+    for game in games:
+        if game.status != 'finished':
+            continue
+
+        if game.result == 'draw':
+            draws += 1
+        elif (game.result == 'attacker' and game.attacker == users) or (game.result == 'defender' and game.defender == users):
+            wins += 1
+        else:
+            losses += 1
+
+    context = {
+        'games': games,
+        'wins': wins,
+        'losses': losses,
+        'draws': draws,
+    }
+
+    return render(request, 'games/game_history.html', context)
+
+@login_required
+def game_detail(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+    user = request.user
+    context = {
+        'game': game,
+        'is_attacker': user == game.attacker,
+        'is_defender': user == game.defender,
+    }
+
+    return render(request, 'games/game_detail.html', context)

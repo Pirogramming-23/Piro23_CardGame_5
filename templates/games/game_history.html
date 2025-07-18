@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>History List</div>
+<div>현재 플레이어 : {{ user }}</div>
+<hr>
+<ol>
+{% for game in games %}
+<li>
+    {% if user == game.attacker %}
+    <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div>
+    {% else %}
+    <div>{{ game.defender_card }} {{game.defender}} VS {{ game.attacker }}</div>
+    {% endif %}
+
+    {% if game.status == "finished" %}
+    <div>{{ game.result }}</div>
+    {% elif game.status == "waiting" and user == game.attacker %}
+    <div>
+        {{ game.status }}
+        <form method="POST" action="{% url 'games:cancel' game.id %}">
+            {% csrf_token %}
+            <button type="submit" class="cancel-link" style="border: none; cursor: pointer;">게임 취소</button>
+        </form>
+    </div>
+    {% else %}
+    <form method="POST" action="{% url 'games:counter' game.id %}">
+        {% csrf_token %}
+        <button type="submit">CounterAttack</button>
+    </form>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'games:detail' game.id %}">게임 정보</a>
+    </div>
+</li>
+{% endfor %}
+</ol>
+{% endblock %}
