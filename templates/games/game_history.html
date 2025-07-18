@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+  <!-- 페이지 전용 CSS -->
+  <link rel="stylesheet" href="{% static 'users/history.css' %}"/>
+{% endblock %}
+
 {% block content %}
-<div>History List</div>
-<div>현재 플레이어 : {{ user }}</div>
+<div class='title'>History List</div>
+<div class='player'>현재 플레이어 : {{ user }}</div>
 <hr>
 <ol>
 {% for game in games %}
 <li>
     {% if user == game.attacker %}
-    <div>{{ game.attacker }} VS {{ game.defender }}</div>
+    <div class='vs'>{{ game.attacker }} VS {{ game.defender }}</div>
     {% else %}
-    <div>{{game.defender}} VS {{ game.attacker }}</div>
+    <div class='vs'>{{game.defender}} VS {{ game.attacker }}</div>
     {% endif %}
 
     {% if game.status == "finished" %}
         {% if game.result == 'attacker' %}
-            <div>{{ game.attacker.username }}의 승리</div>
+            <div class='winner'>{{ game.attacker.username }}의 승리</div>
             {% elif game.result == 'defender' %}
-            <div>{{ game.defender.username }}의 승리</div>
+            <div class='winner'>{{ game.defender.username }}의 승리</div>
             {% elif game.result == 'draw' %}
-            <div>무승부</div>
+            <div class='winner'>무승부</div>
             {% endif %}
 
         {% elif game.status == "waiting" and user == game.attacker %}
@@ -41,4 +47,7 @@
 </li>
 {% endfor %}
 </ol>
+{% endblock %}
+{% block hills %}
+{# 부모의 기본 언덕 마크업을 완전히 덮어써서 제거 #}
 {% endblock %}
