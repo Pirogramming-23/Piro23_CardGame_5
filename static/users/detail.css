@@ -1,0 +1,22 @@
+.detail-container {
+    width: 25vw;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #427337;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 800;
+}
+
+.detail-vs {
+  font-family: 'Mochiy Pop P One', sans-serif;
+  font-size: 1.1rem;
+  color: #fff9e5;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+    background-color: #85B579;
+}

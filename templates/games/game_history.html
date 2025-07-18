@@ -9,15 +9,16 @@
 <div class='title'>History List</div>
 <div class='player'>현재 플레이어 : {{ user }}</div>
 <hr>
-<ol>
+<ol class="history-list">
 {% for game in games %}
 <li>
     {% if user == game.attacker %}
-    <div class='vs'>{{ game.attacker }} VS {{ game.defender }}</div>
+    <div class='col vs'>{{ game.attacker }} VS {{ game.defender }}</div>
     {% else %}
-    <div class='vs'>{{game.defender}} VS {{ game.attacker }}</div>
+    <div class='col vs'>{{game.defender}} VS {{ game.attacker }}</div>
     {% endif %}
 
+    <div class="col status"></div>
     {% if game.status == "finished" %}
         {% if game.result == 'attacker' %}
             <div class='winner'>{{ game.attacker.username }}의 승리</div>
@@ -42,7 +43,7 @@
 
         {% if game.status == "finished" or user == game.attacker %}
             <a href="{% url 'games:detail' game.id %}">게임 정보</a>
-    {% endif %}
+        {% endif %}
 
 </li>
 {% endfor %}
