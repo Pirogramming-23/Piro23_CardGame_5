@@ -15,7 +15,7 @@ header {
     color: #fff9e5;
     font-family: "Modak", "sans-serif";
     font-size: 25px;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -30,6 +30,47 @@ header {
     text-decoration: none;
     font-weight: 400;
 }
+
+main {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 60px;
+}
+
+
+
+.hill-left {
+    position: absolute;
+    width: 1093px;
+    height: 412px;
+    top: 340px;
+    left: -317px;
+    background-color: #84B579;
+    border-radius: 546.5px / 206px ;
+    z-index: 500;
+}
+
+.hill-front {
+    position: absolute;
+    width: 1622px;
+    height: 315px;
+    top: 450px;
+    left: -62px;
+    background-color: #D3ECCD;
+    border-radius: 811px / 157.5px;
+    z-index: 700;
+}
+.hill-right {
+    position: absolute;
+    width: 402px;
+    height: 368px;
+    top: 355px;
+    left: 1178px;
+    background-color: #84B579;
+    border-radius: 201px / 184px;
+    z-index: 500;
+}
+
 footer {
     background: #427337;
     color: #fff9e5;
@@ -41,6 +82,7 @@ footer {
     align-items: center;
     justify-content: center;
     position: fixed;
+    z-index: 999;
     left: 0;
     bottom: 0;
     width: 100vw;
@@ -51,7 +93,10 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 800;
 }
+
 .home-main {
     display: flex;
     flex-direction: column;
@@ -60,12 +105,14 @@ main {
     width: 100vw;
     min-height: 70vh;
     background: #fff9e5;
+    /* padding-bottom: 100px; */
 }
 
 .home-title {
     font-family: 'Modak', sans-serif;
     color: #427337;
     font-size: 60px;
+    font-weight: 500;
     margin: 60px 0 32px 0;
     letter-spacing: 2px;
     text-shadow: 1px 2px 8px #e0e0e0;
@@ -81,7 +128,7 @@ main {
 .home-btn-group {
     display: flex;
     gap: 24px;
-    margin-bottom: 32px;
+    margin-bottom: 150px;
 }
 
 .home-btn {
@@ -120,6 +167,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
 }
 .social_login {
     display: block;
@@ -137,6 +185,8 @@ main {
 }
 
 .signup-main {
+    position: relative;
+    z-index: 800;
     max-width: 400px;
     margin: 40px auto;
     padding: 2rem;
@@ -188,6 +238,8 @@ main {
     flex-direction: column;
     align-items: center;
     box-shadow: 0 4px 24px rgba(66, 115, 55, 0.10);
+    position: relative;
+    z-index: 800;
 }
 .ranking-title {
     font-family: 'Mochiy Pop P One', 'Noto Sans KR', sans-serif;
@@ -248,4 +300,15 @@ main {
     background: #427337;
     color: #fff9e5;
     border: 2px solid #fff9e5;
+}
+
+#start-game {
+    position: relative;
+    z-index: 800;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 2rem;
+    background: #fff9e5;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
