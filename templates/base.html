@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pirogrammer Card Game</title>
         <link rel="stylesheet" href="{% static 'users/style.css' %}" />
+        <link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -29,7 +30,17 @@
                 </div>
             </div>
         </header>
-        <main>{% block content %} {% endblock %}</main>
+        <main>
+            {% block content %} {% endblock %}
+            <div class="hills">
+                {% block hills %}
+                <!-- 기본 언덕 도형들 -->
+                <div class="hill hill-left"></div>
+                <div class="hill hill-front"></div>
+                <div class="hill hill-right"></div>
+                {% endblock %}
+            </div>
+        </main>
         <footer>피로그래밍 23기 카드게임 세션 5조</footer>
     </body>
 </html>
