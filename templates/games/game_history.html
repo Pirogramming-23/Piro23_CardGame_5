@@ -14,9 +14,9 @@
     <li>
         <div class="game-info">
             {% if user == game.attacker %}
-            <div>{{ game.attacker_card }} {{ game.attacker }} VS {{ game.defender }}</div>
+            <div>{{ game.attacker }} VS {{ game.defender }}</div>
             {% else %}
-            <div>{{ game.defender_card }} {{game.defender}} VS {{ game.attacker }}</div>
+            <div>{{game.defender}} VS {{ game.attacker }}</div>
             {% endif %}
 
             {% if game.status == "finished" %}
@@ -30,9 +30,9 @@
                 </form>
             </div>
             {% else %}
-            <form method="POST" action="{% url 'games:counter' game.id %}">
-                {% csrf_token %}
-                <button type="submit">CounterAttack</button>
+                <form method="GET" action="{% url 'games:counter' game.id %}" style="display: inline;">
+                    <button type="submit" style="border: none; cursor: pointer;">대응하러 가기</button>
+                </form>
             </form>
             {% endif %}   
             <div>
