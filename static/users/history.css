@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  background-color: #fcf7e4; /* 연한 베이지 */
+  color: #3c6e47;            /* 다크 그린 */
+}
+
+
+.history-container {
+  width: 85%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+.history-container > .history-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-family: 'Mochiy Pop P One';
+}
+
+.history-container > .current-player {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+
+.history-container hr {
+  border: none;
+  border-top: 1px solid #c5d8b2;
+  margin-bottom: 1.5rem;
+}
+
+
+.history-list {
+  list-style: none;
+}
+
+.history-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fcf7e4;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
+.game-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+
+
+.history-list li .game-result,
+.history-list li .game-status {
+  font-weight: 600;
+}
+
+
+.history-list li form button,
+.history-list li a.info-btn {
+  background-color: #3c6e47;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.history-list li form button:hover,
+.history-list li a.info-btn:hover {
+  background-color: #2d5036;
+}
+
+.cancel-link {
+  background: none;
+  color: #3c6e47;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.cancel-link:hover {
+  color: #2d5036;
+  text-decoration: none;
+}

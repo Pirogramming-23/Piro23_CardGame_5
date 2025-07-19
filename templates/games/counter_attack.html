@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="start-game">
+    <h2 class="signup-title">반격하기</h2>
+
+    <form method="post" class="game-form">
+        {% csrf_token %}
+        <div id="form-group">
+            <p>카드 선택 (1장):</p>
+            <div class="card-options">
+            {% for card in cards %}
+                <label>
+                <input type="radio" name="selected_card" value="{{ card }}" required> 
+                <span>{{ card }}</span>
+                </label>
+            {% endfor %}              
+            </div>
+        </div>
+
+        <button type="submit" class="social_login">반격!</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

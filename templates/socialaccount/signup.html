@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<div class="signup-main">
+    <h1 class="signup-title">추가 정보 입력</h1>
+    <div class="signup-info">
+        <p>
+            <b>{{ account.get_provider.name }}</b> 계정으로 회원가입을
+            진행합니다.<br />
+            이메일: <b>{{ account.extra_data.email }}</b>
+        </p>
+    </div>
+    <form class="signup-form" method="post">
+        {% csrf_token %}
+        <div>{{ form.username.label_tag }} {{ form.username }}</div>
+        <button type="submit">회원가입 완료</button>
+    </form>
+</div>
+{% endblock %}
